@@ -5,14 +5,14 @@
 @font-face {
     font-family: 'Hk Grotesk';
     font-style: normal;
-    font-weight: 350;
+    font-weight: 400;
     src: url('./fonts/HKGrotesk-Regular.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Jost';
     font-style: normal;
-    font-weight: 350;
+    font-weight: 400;
     src: url('./fonts/Jost-Regular.ttf') format('woff');
 }
 
@@ -69,7 +69,7 @@ html {
 body {
     font-size: var(--font-size-small);
     font-family: var(--font-stack);
-    font-weight: 350;
+    font-weight: 400;
     color: var(--white-1);
     line-height: var(--line-height-normal);
     background: var(--black);
