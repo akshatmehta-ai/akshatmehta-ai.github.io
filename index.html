@@ -15,7 +15,6 @@
   <!-- Add some coding keywords below, Ex: (React, CSS etc) -->
   <meta name="keywords" content="Akshat Mehta, A 15 year old Developer" />
   <link rel="stylesheet" href="index.css" />
-  <link rel="stylesheet" href="loader.css" />
 </head>
 
 <body>
@@ -194,6 +193,33 @@ DEVELOPING MORE AND MORE ON VISUAL STUDIO CODE AND ANDROID STUDIO
   </a>
   <script src="./index.js"></script>
   
-</body>
+  <style>
+body {
+  padding: 25px;
+  background-color: white;
+  color: black;
+  font-size: 25px;
+}
 
+.dark-mode {
+  background-color: black;
+  color: white;
+}
+</style>
+</head>
+<body>
+
+<h2>Toggle Dark/Light Mode</h2>
+<p>Click the button to toggle between dark and light mode for this page.</p>
+
+<button onclick="myFunction()">Toggle dark mode</button>
+
+<script>
+function myFunction() {
+   var element = document.body;
+   element.classList.toggle("dark-mode");
+}
+</script>
+
+</body>
 </html>
