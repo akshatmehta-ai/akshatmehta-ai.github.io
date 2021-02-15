@@ -156,6 +156,36 @@ DEVELOPING MORE AND MORE ON VISUAL STUDIO CODE AND ANDROID STUDIO
       </div>
     </div>
   </section>
+  <!-- ***** DARK MODE ***** -->
+  <section class="darkmode" id="darkmode">
+    <div class="row"> 
+    <style>
+body {
+  padding: 25px;
+  background-color: black;
+  color: white;
+  font-size: 25px;
+}
+
+.light-mode {
+  background-color: white;
+  color: black;
+}
+</style>
+</head>
+<body>
+
+<h2>Toggle Dark/Light Mode</h2>
+<p>Click the button to toggle between dark and light mode for this page.</p>
+
+<button onclick="myFunction()">Toggle Light mode (Beta Testing)</button>
+
+<script>
+function myFunction() {
+   var element = document.body;
+   element.classList.toggle("light-mode");
+}
+</script>
 
   <!-- ***** Footer ***** -->
 
@@ -193,33 +223,6 @@ DEVELOPING MORE AND MORE ON VISUAL STUDIO CODE AND ANDROID STUDIO
     <img src="./images/source.gif" alt="Back to Top" class="back-to-top__image"/>
   </a>
   <script src="./index.js"></script>
-  
-  <style>
-body {
-  padding: 25px;
-  background-color: black;
-  color: white;
-  font-size: 25px;
-}
 
-.light-mode {
-  background-color: white;
-  color: black;
-}
-</style>
-</head>
-<body>
-
-<h2>Toggle Dark/Light Mode</h2>
-<p>Click the button to toggle between dark and light mode for this page.</p>
-
-<button onclick="myFunction()">Toggle Light mode (Beta Testing)</button>
-
-<script>
-function myFunction() {
-   var element = document.body;
-   element.classList.toggle("light-mode");
-}
-</script>
 </body>
 </html>
