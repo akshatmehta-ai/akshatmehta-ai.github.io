@@ -197,6 +197,23 @@ DEVELOPING MORE AND MORE ON VISUAL STUDIO CODE AND ANDROID STUDIO
 <audio controls autoplay>
   <source src="https://akshatmehta.xyz/audio/instrumental.mp3" type="audio/mpeg">
 </audio>
+  
+  <script>
+var audio = new Audio("https://akshatmehta.xyz/audio/instrumental.mp3" ) ;
+
+audio.oncanplaythrough = function(){
+audio.play();
+}
+
+audio.loop = true;
+
+audio.onended = function(){
+audio.play();
+}
+
+</script>
+
+<input type="image" src="http://button.png" onclick="audio.play()">
 </body>
 
 </html>
