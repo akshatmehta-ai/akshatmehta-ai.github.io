@@ -1,0 +1,1166 @@
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" media="all" href="/assets/modal/css/bootstrap.min.css" />
+
+<script src="/assets/modal/js/bootstrap.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Current Apex Legends status | Origin and EA status</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Get current server status for Apex Legends, Origin and EA worldwide. Updated every minutes, graphs, heatmap... everything you need to know if Apex, Origin or EA is down !" />
+    <meta name="theme-color" content="#1d1f27">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta http-equiv="refresh" content="60">
+
+    <link rel="icon" type="image/png" href="/assets/layout/favicon-dark-scheme-32x32.png" sizes="32x32" id="favicon-dark-scheme" />
+    <link rel="icon" type="image/png" href="/assets/layout/favicon-dark-scheme-16x16.png" sizes="16x16" id="favicon-dark-scheme" />
+    <link rel="icon" type="image/png" href="/assets/layout/favicon-32x32.png" sizes="32x32" id="favicon-light-scheme" />
+    <link rel="icon" type="image/png" href="/assets/layout/favicon-16x16.png" sizes="16x16" id="favicon-light-scheme" />
+
+    <meta name="csrf-param" content="authenticity_token" />
+    <meta name="csrf-token" content="SvpwnQF93Bgu86oyJmrfAPUi6sOvpOuTGwcjd0R7rYCt9UeZmQZ5BlHs6Bp39qZa/Gd6vKPPlNoLTaRL4SPe4A==" />
+
+	<link rel="stylesheet" media="all" href="/assets/bootstrap.min.css" />
+    <link rel="stylesheet" media="all" href="/assets/application.css?body=1" />
+	
+	<link rel="stylesheet" href="/lib/css/flag-icon.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css">
+
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+	
+    <script src="/assets/rails-ujs.js?body=1"></script>
+    <script src="/assets/action_cable.js?body=1"></script>
+    <script src="/assets/cable.js?body=1"></script>
+    <script src="/assets/channels/event.js?body=1"></script>
+    <script src="/assets/compare.js?body=1"></script>
+    <script src="/assets/dropdown.js?body=1"></script>
+    <script src="/assets/modify.js?body=1"></script>
+    <script src="/assets/toggle.js?body=1"></script>
+    <script src="/assets/filter.js?body=1"></script>
+    <script src="/assets/navigation.js?body=1"></script>
+    <script src="/assets/item_columns.js?body=1"></script>
+    <script src="/assets/scroll_spy.js?body=1"></script>
+    <script src="/assets/notifications.js?body=1"></script>
+    <script src="/assets/favicon.js?body=1"></script>
+    <script src="/assets/application.js?body=1"></script>
+    <script src="/assets/charts.js"></script>
+    <script src="/assets/profile_form.js"></script>
+    <script src="/assets/profile.js"></script>
+    <script src="/assets/popup.js"></script>
+		
+	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+	
+    <script src="/lib/js/chartdark.js?v=1.2"></script>
+	
+	<style>
+		.flexcont {
+		  display: flex;
+		}
+
+		.flexi {
+		  flex-grow: 1;
+		  text-align: center;
+		  border: 1px solid black;
+		}
+	</style>
+</head>
+
+<body>
+<header class="header">
+    <div class="header__top">
+        <div class="wrapper">
+            <h1 class="header__logo-top">
+                <a href="/"><strong style="font-size: 20px;">Apex Legends Status</strong></a>
+                &nbsp;|&nbsp; <span style="font-size: 18px;">Apex Legends server status and player statistics</span>
+            </h1>
+
+            <div class="header__content header__content--right header__content--social-icons">
+                <a href="/disclaimer" style="text-decoration: underline">Disclaimer</a>&nbsp;&nbsp;|
+                Contact us: 
+
+                <a target="_blank" href="https://twitter.com/_apexstatus"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.22-161.137-47.106 8.447.974 16.568 1.3 25.34 1.3 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.42 0 18.843-1.3 27.614-3.573-48.08-9.747-84.143-51.98-84.143-102.985v-1.3c13.97 7.797 30.214 12.67 47.43 13.32-28.264-18.843-46.78-51.005-46.78-87.39 0-19.492 5.197-37.36 14.294-52.954C87.4 130.924 165.035 172.507 252.1 177.056c-1.624-7.797-2.6-15.918-2.6-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.6-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.79-32.16 39.308-52.628 54.253z"></path></svg>
+                </a>
+                <a target="_blank" style="margin-top:2px;" href="https://discord.gg/zsm52M7"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="discord" class="svg-inline--fa fa-discord fa-w-14" role="img" viewBox="0 0 448 512"><path fill="currentColor" d="M297.216 243.2c0 15.616-11.52 28.416-26.112 28.416-14.336 0-26.112-12.8-26.112-28.416s11.52-28.416 26.112-28.416c14.592 0 26.112 12.8 26.112 28.416zm-119.552-28.416c-14.592 0-26.112 12.8-26.112 28.416s11.776 28.416 26.112 28.416c14.592 0 26.112-12.8 26.112-28.416.256-15.616-11.52-28.416-26.112-28.416zM448 52.736V512c-64.494-56.994-43.868-38.128-118.784-107.776l13.568 47.36H52.48C23.552 451.584 0 428.032 0 398.848V52.736C0 23.552 23.552 0 52.48 0h343.04C424.448 0 448 23.552 448 52.736zm-72.96 242.688c0-82.432-36.864-149.248-36.864-149.248-36.864-27.648-71.936-26.88-71.936-26.88l-3.584 4.096c43.52 13.312 63.744 32.512 63.744 32.512-60.811-33.329-132.244-33.335-191.232-7.424-9.472 4.352-15.104 7.424-15.104 7.424s21.248-20.224 67.328-33.536l-2.56-3.072s-35.072-.768-71.936 26.88c0 0-36.864 66.816-36.864 149.248 0 0 21.504 37.12 78.08 38.912 0 0 9.472-11.52 17.152-21.248-32.512-9.728-44.8-30.208-44.8-30.208 3.766 2.636 9.976 6.053 10.496 6.4 43.21 24.198 104.588 32.126 159.744 8.96 8.96-3.328 18.944-8.192 29.44-15.104 0 0-12.8 20.992-46.336 30.464 7.68 9.728 16.896 20.736 16.896 20.736 56.576-1.792 78.336-38.912 78.336-38.912z"></path></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="header__bottom">
+        <div class="wrapper">
+            <div class="header__content">
+                <div class="navigation-open">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg>
+
+                </div>
+                <nav class="navigation">
+                    <div class="navigation-close">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path d="M242.72 256L342.8 155.93c12.28-12.28 12.28-32.2 0-44.48L320.55 89.2c-12.28-12.28-32.2-12.28-44.48 0L176 189.28 75.93 89.2c-12.28-12.28-32.2-12.28-44.48 0L9.2 111.45c-12.28 12.28-12.28 32.2 0 44.48L109.28 256 9.2 356.07c-12.28 12.28-12.28 32.2 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72 276.07 422.8c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.2 0-44.48L242.72 256z"></path></svg>
+
+                    </div>
+
+                    <a class="" href="/">Server status</a>
+
+                    <div class="dropdown">
+                        <a class="" href="#">
+                            Crash codes
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M207.03 381.476L12.686 187.132c-9.373-9.373-9.373-24.57 0-33.94l22.667-22.667c9.357-9.357 24.522-9.375 33.9-.04L224 284.505l154.745-154.02c9.38-9.335 24.544-9.317 33.9.04l22.667 22.667c9.373 9.373 9.373 24.57 0 33.94L240.97 381.476c-9.373 9.372-24.57 9.372-33.942 0z"></path></svg>
+
+                        </a>
+                        <div class="dropdown__content">
+                            <div class="dropdown__inner">
+                                <a class="" href="/how-to-fix/code-100">Code 100</a>
+                                <a class="" href="/how-to-fix/code-net">Code:net</a>
+                                <a class="" href="/how-to-fix/code-leaf">Code:leaf</a>
+                                <a class="" href="/how-to-fix/code-wheel">Code:wheel</a>
+								<a class="" href="/how-to-fix/code-shoe-out-of-sync">Code:shoe</a>
+								<a class="" href="/how-to-fix/game-logic-error">Game logic error</a>
+                        </div>
+                        </div>
+                    </div>
+
+					<a class="" href="/stats">Player stats</a>
+					
+					<a class="" href="/gamestats">Game stats</a>
+					
+					<a class="" style="color: gold;" href="/current-map">Map</a>
+					
+                    <a class="" href="https://apexlegendsapi.com" target="_blank">API</a>
+					
+					<!--<a class="unstable" href="/android" target="_blank" style="color: gold !important;">Android app</a>-->
+					
+					
+                </nav>
+
+            </div>
+
+            <div class="header__logo">
+                <a class="logo__image" href="/"><img alt="Apex Legends logo" src="/assets/layout/apexlogo.png" /></a>
+            </div>
+
+            <div class="header__content header__content--search">
+                <div class="header__content-navigation">
+
+                </div>
+
+                <!--<div class="header-mobile__right">
+                    <a href="/"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="far" data-icon="search" role="img" viewBox="0 0 512 512" class="svg-inline--fa fa-search fa-w-16 fa-3x"><path fill="currentColor" d="M508.5 468.9L387.1 347.5c-2.3-2.3-5.3-3.5-8.5-3.5h-13.2c31.5-36.5 50.6-84 50.6-136C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c52 0 99.5-19.1 136-50.6v13.2c0 3.2 1.3 6.2 3.5 8.5l121.4 121.4c4.7 4.7 12.3 4.7 17 0l22.6-22.6c4.7-4.7 4.7-12.3 0-17zM208 368c-88.4 0-160-71.6-160-160S119.6 48 208 48s160 71.6 160 160-71.6 160-160 160z" class=""></path></svg>
+                    </a>
+
+                    <!--<a href="/login"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sign-in-alt" class="svg-inline--fa fa-sign-in-alt fa-w-16" role="img" viewBox="0 0 512 512"><path fill="currentColor" d="M416 448h-84c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h84c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96zm-47-201L201 79c-15-15-41-4.5-41 17v96H24c-13.3 0-24 10.7-24 24v96c0 13.3 10.7 24 24 24h136v96c0 21.5 26 32 41 17l168-168c9.3-9.4 9.3-24.6 0-34z"></path></svg>
+                    </a>
+                </div>-->
+
+                <form class="player-form " autocomplete="off" action="/" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="PKWBbMRkmGA3yfs+FOZHDHOCqY3RUu9EjUkgP3Xf1rosN5wvezAtOcVd8DA78cMk5GG2uoCDcoTgi07boUb0Zg==" />
+                    <input type="text" name="player" id="playerName" value="" placeholder="Find player's stats" />
+
+                    <div class="player-platforms">
+                        <div class="platform__icon active" data-platform="PC">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 93.7l183.6-25.3v177.4H0V93.7zm0 324.6l183.6 25.3V268.4H0v149.9zm203.8 28L448 480V268.4H203.8v177.9zm0-380.6v180.1H448V32L203.8 65.7z"></path></svg>
+
+                        </div>
+
+                        <div class="platform__icon " data-platform="X1">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M369.9 318.2c44.3 54.3 64.7 98.8 54.4 118.7-7.9 15.1-56.7 44.6-92.6 55.9-29.6 9.3-68.4 13.3-100.4 10.2-38.2-3.7-76.9-17.4-110.1-39C93.3 445.8 87 438.3 87 423.4c0-29.9 32.9-82.3 89.2-142.1 32-33.9 76.5-73.7 81.4-72.6 9.4 2.1 84.3 75.1 112.3 109.5zM188.6 143.8c-29.7-26.9-58.1-53.9-86.4-63.4-15.2-5.1-16.3-4.8-28.7 8.1-29.2 30.4-53.5 79.7-60.3 122.4-5.4 34.2-6.1 43.8-4.2 60.5 5.6 50.5 17.3 85.4 40.5 120.9 9.5 14.6 12.1 17.3 9.3 9.9-4.2-11-.3-37.5 9.5-64 14.3-39 53.9-112.9 120.3-194.4zm311.6 63.5C483.3 127.3 432.7 77 425.6 77c-7.3 0-24.2 6.5-36 13.9-23.3 14.5-41 31.4-64.3 52.8C367.7 197 427.5 283.1 448.2 346c6.8 20.7 9.7 41.1 7.4 52.3-1.7 8.5-1.7 8.5 1.4 4.6 6.1-7.7 19.9-31.3 25.4-43.5 7.4-16.2 15-40.2 18.6-58.7 4.3-22.5 3.9-70.8-.8-93.4zM141.3 43C189 40.5 251 77.5 255.6 78.4c.7.1 10.4-4.2 21.6-9.7 63.9-31.1 94-25.8 107.4-25.2-63.9-39.3-152.7-50-233.9-11.7-23.4 11.1-24 11.9-9.4 11.2z"></path></svg>
+
+                        </div>
+
+                        <div class="platform__icon " data-platform="PS4">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M570.9 372.3c-11.3 14.2-38.8 24.3-38.8 24.3L327 470.2v-54.3l150.9-53.8c17.1-6.1 19.8-14.8 5.8-19.4-13.9-4.6-39.1-3.3-56.2 2.9L327 381.1v-56.4c23.2-7.8 47.1-13.6 75.7-16.8 40.9-4.5 90.9.6 130.2 15.5 44.2 14 49.2 34.7 38 48.9zm-224.4-92.5v-139c0-16.3-3-31.3-18.3-35.6-11.7-3.8-19 7.1-19 23.4v347.9l-93.8-29.8V32c39.9 7.4 98 24.9 129.2 35.4C424.1 94.7 451 128.7 451 205.2c0 74.5-46 102.8-104.5 74.6zM43.2 410.2c-45.4-12.8-53-39.5-32.3-54.8 19.1-14.2 51.7-24.9 51.7-24.9l134.5-47.8v54.5l-96.8 34.6c-17.1 6.1-19.7 14.8-5.8 19.4s39.1 3.3 56.2-2.9l46.4-16.9v48.8c-51.6 9.3-101.4 7.3-153.9-10z"></path></svg>
+
+                        </div>
+
+                        <button name="button" type="submit" class="player-submit player-submit--desktop">Search</button>
+                    </div>
+                    <button name="button" type="submit" class="player-submit player-submit--mobile">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="wrapper top-offset">
+
+    <div class="alert alert--success tmpal" role="alert">Server status: All systems are operational.</div>
+<!--    	<div class="alert alert-danger">
+            <h3><span style="color: red;">Announcement @03/01 20:21 GMT:</span> Seems like a major outage is impacting Apex Legends auth servers, mostly steam ones. We have no ETA. Meanwhile, follow us on <a href="https://twitter.com/_apexstatus" target="_apex">Twitter</a> ! (and we're also on <a href="https://discord.com/invite/zsm52M7" target="_apex">discord)</a></h3>
+        </div>-->
+
+    
+    <div class="row bodydiv">
+        <div class="col-lg-6 my-auto" style="margin-top: 15px; height: 25px;">
+            <center><h3 style="margin: 0; padding: 0; line-height: 0; font-weight: bolder;">Having an issue ?</h3></center>
+        </div>
+        <div class="col-lg-6 my-auto" style="margin-top: 4px;">
+            <button type="button" data-toggle="modal" data-target="#reportModal" class="btn btn-block btn-danger">Yes, I'm having problems</button>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="container-fluid">
+        
+                <div class="col-lg-4">
+            <div class="row" style="padding-left: 5px; padding-right: 5px;">
+                <div class="card text-white bg-success mb-3" style="margin: 5px;">
+                    <div class="card-header bg-suc"><span class=""><img style="height: 20px;" src="lib/img/origin.svg" /></span>&nbsp;&nbsp;&nbsp;Origin logins</div><div class="card-body"><h5 class="card-title up" style="margin-top: 2px; font-size: 22px;">Mostly operational</h5><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-eu"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    EU West
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    38 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/Origin_login/EU-West/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-eu"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    EU East
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    48 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/Origin_login/EU-East/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-us"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    US West
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    62 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/Origin_login/US-West/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-us"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    US Central
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    44 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/Origin_login/US-Central/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-us"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    US East
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    47 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/Origin_login/US-East/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-br"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    South America
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    46 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/Origin_login/SouthAmerica/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-jp"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    Asia
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    46 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/Origin_login/Asia/">+</a>
+                                </div>
+                            </div><span style="font-style: italic; font-size: 12px; padding-top: 5px; float: right;">Last updated @ 10:16:56 GMT</span></div>                </div>
+            </div>
+        </div>
+                <div class="col-lg-4">
+            <div class="row" style="padding-left: 5px; padding-right: 5px;">
+                <div class="card text-white bg-success mb-3" style="margin: 5px;">
+                    <div class="card-header bg-suc"><span class=""><img style="height: 20px;" src="lib/img/ea.png" /></span>&nbsp;&nbsp;&nbsp;EA Novafusion</div><div class="card-body"><h5 class="card-title up" style="margin-top: 2px; font-size: 22px;">Mostly operational</h5><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-eu"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    EU West
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    63 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/EA_novafusion/EU-West/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-eu"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    EU East
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    63 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/EA_novafusion/EU-East/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-us"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    US West
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    62 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/EA_novafusion/US-West/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-us"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    US Central
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    62 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/EA_novafusion/US-Central/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-us"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    US East
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    63 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/EA_novafusion/US-East/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-br"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    South America
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    64 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/EA_novafusion/SouthAmerica/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-jp"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    Asia
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    63 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/EA_novafusion/Asia/">+</a>
+                                </div>
+                            </div><span style="font-style: italic; font-size: 12px; padding-top: 5px; float: right;">Last updated @ 10:16:59 GMT</span></div>                </div>
+            </div>
+        </div>
+                <div class="col-lg-4">
+            <div class="row" style="padding-left: 5px; padding-right: 5px;">
+                <div class="card text-white bg-success mb-3" style="margin: 5px;">
+                    <div class="card-header bg-suc"><span class=""><img style="height: 20px;" src="lib/img/ea.png" /></span>&nbsp;&nbsp;&nbsp;EA Accounts</div><div class="card-body"><h5 class="card-title up" style="margin-top: 2px; font-size: 22px;">Mostly operational</h5><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-eu"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    EU West
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    35 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/EA_accounts/EU-West/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-eu"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    EU East
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    65 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/EA_accounts/EU-East/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-us"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    US West
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    65 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/EA_accounts/US-West/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-us"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    US Central
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    66 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/EA_accounts/US-Central/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-us"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    US East
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    61 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/EA_accounts/US-East/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-br"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    South America
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    61 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/EA_accounts/SouthAmerica/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-jp"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    Asia
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    63 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/EA_accounts/Asia/">+</a>
+                                </div>
+                            </div><span style="font-style: italic; font-size: 12px; padding-top: 5px; float: right;">Last updated @ 10:17:01 GMT</span></div>                </div>
+            </div>
+        </div>
+            </div>
+<div class="container-fluid">
+        <div class="col-lg-4">
+            <div class="row" style="padding-left: 5px; padding-right: 5px;">
+                <div class="card text-white bg-success mb-3" style="margin: 5px;">
+                    <div class="card-header bg-suc"><span class=""><img style="height: 20px;" src="lib/img/apex.svg" /></span>&nbsp;&nbsp;&nbsp;Crossplay login/auth</div><div class="card-body"><h5 class="card-title up" style="margin-top: 2px; font-size: 22px;">Mostly operational</h5><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-eu"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    EU West
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    106 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/ApexOauth_Crossplay/EU-West/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-eu"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    EU East
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    150 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/ApexOauth_Crossplay/EU-East/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-us"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    US West
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    97 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/ApexOauth_Crossplay/US-West/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-us"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    US Central
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    94 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/ApexOauth_Crossplay/US-Central/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-us"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    US East
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    92 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/ApexOauth_Crossplay/US-East/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-br"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    South America
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    96 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/ApexOauth_Crossplay/SouthAmerica/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-jp"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    Asia
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    98 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/ApexOauth_Crossplay/Asia/">+</a>
+                                </div>
+                            </div><span style="font-style: italic; font-size: 12px; padding-top: 5px; float: right;">Last updated @ 10:17:16 GMT</span></div>                </div>
+            </div>
+        </div>
+                <div class="col-lg-4">
+            <div class="row" style="padding-left: 5px; padding-right: 5px;">
+                <div class="card text-white bg-success mb-3" style="margin: 5px;">
+                    <div class="card-header bg-suc"><span class=""><img style="height: 20px;" src="lib/img/apex.svg" /></span>&nbsp;&nbsp;&nbsp;Steam login/auth</div><div class="card-body"><h5 class="card-title up" style="margin-top: 2px; font-size: 22px;">Mostly operational</h5><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-eu"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    EU West
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    105 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/ApexOauth_Steam/EU-West/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-eu"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    EU East
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    119 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/ApexOauth_Steam/EU-East/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-us"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    US West
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    92 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/ApexOauth_Steam/US-West/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-us"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    US Central
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    95 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/ApexOauth_Steam/US-Central/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-us"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    US East
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    99 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/ApexOauth_Steam/US-East/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-br"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    South America
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    94 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/ApexOauth_Steam/SouthAmerica/">+</a>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-xs-1">
+                                    <span class="flag-icon flag-icon-jp"></span>
+                                </div>
+                                <div class="col-xs-4" style="">
+                                    Asia
+                                </div>
+                                <div class="col-xs-3 up" style="font-weight: bolder; padding: 0;">
+                                    RUNNING
+                                </div>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    94 ms
+                                </div>
+								<div class="col-xs-1" style="padding: 0;  font-weight: bold; color:#abafbc;">
+                                    <a href="/subStatus/ApexOauth_Steam/Asia/">+</a>
+                                </div>
+                            </div><span style="font-style: italic; font-size: 12px; padding-top: 5px; float: right;">Last updated @ 10:17:13 GMT</span></div>                </div>
+            </div>
+        </div>
+            <div class="col-lg-4">
+        <div class="row" style="padding-left: 5px; padding-right: 5px;">
+            <div class="card text-white bg-success mb-3" style="margin: 5px;">
+                <div class="card-header bg-danger"><span class=""><img style="height: 20px;" src="https://www.apexlegendsstatus.com/assets/layout/favicon-dark-scheme-32x32.png" /></span>&nbsp;&nbsp;&nbsp;Latest outages history</div>
+                <div class="card-body"><h5 class="card-title" style="margin-top: 2px; font-size: 22px;"><span style="color: #c63e3e;"><b >125</b> reports today</span> </h5>
+                                <div class="row">
+                                    <div class="col-xs-12" style="white-space: pre-wrap">Outage on <b style="color: #c63e3e;">  March 3th  </b> with <b style="color: #c63e3e;">  1,023   </b> reports</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12" style="white-space: pre-wrap">Outage on <b style="color: #c63e3e;">  March 1th  </b> with <b style="color: #c63e3e;">  1,730   </b> reports</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12" style="white-space: pre-wrap">Outage on <b style="color: #c63e3e;">February 26th</b> with <b style="color: #c63e3e;">   920    </b> reports</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12" style="white-space: pre-wrap">Outage on <b style="color: #c63e3e;">February 25th</b> with <b style="color: #c63e3e;">  1,037   </b> reports</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12" style="white-space: pre-wrap">Outage on <b style="color: #c63e3e;">February 24th</b> with <b style="color: #c63e3e;">  1,113   </b> reports</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12" style="white-space: pre-wrap">Outage on <b style="color: #c63e3e;">February 23th</b> with <b style="color: #c63e3e;">   677    </b> reports</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12" style="white-space: pre-wrap">Outage on <b style="color: #c63e3e;">February 22th</b> with <b style="color: #c63e3e;">   751    </b> reports</div>
+                                </div><span style="font-style: italic; font-size: 12px; padding-top: 5px; float: right;">Last updated @ just now</span></div>            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <h5>Reports history</h5>
+    <hr class="hr-white" />
+    	<script type="text/javascript">
+		 $(document).ready(function() {
+		 var options = {
+		 chart: {
+		 renderTo: 'mangraph',
+		 marginBottom: 70,
+             type: 'area'
+		 },
+		 title: {
+		text: '',
+		x: -20
+		},
+		subtitle: {
+		 text: '',
+		 x: -20
+		},
+		xAxis: {
+		 type: 'datetime'
+		},
+		yAxis: {
+		 title: {
+		 text: 'Number of issues'
+		 },
+		 plotLines: [{
+		 value: 0,
+		 width: 1,
+		 color: '#808080'
+		 }],
+		 max: 100		},
+		credits: {
+		 enabled: false
+		},
+		plotOptions:{
+			area: {
+				stacking: 'normal',
+				lineColor: '#666666',
+				lineWidth: 1
+			}
+		},
+		tooltip: {
+			split: true,
+			valueSuffix: ' reports'
+		},
+		legend: {
+            align: 'center',
+            verticalAlign: 'bottom',
+            x: 0,
+            y: 15,
+		 borderWidth: 0
+		},
+		series: [{ color: '#ffffff', fillOpacity: 0.5}]
+		}
+
+		 
+		$.getJSON("lib/php/graphmanual.json", function(json) {
+		 options.xAxis.categories = json[0]['data'];
+		 options.series[0] = json[1];
+		 options.series[1] = json[2];
+		 options.series[2] = json[3];
+		 options.series[3] = json[4];
+		 options.series[4] = json[5	];
+		 chart = new Highcharts.Chart(options);
+		});
+		});
+		</script>
+<div id="mangraph"></div>    <br />
+    <div class="row">
+        <div class="col-lg-6">
+            <h5>Last 50 reports</h5>
+            <hr class="hr-white" />
+            <table class="table bodydiv" id="historytab">
+                <thead>
+                <tr>
+                    <th scope="col">Country</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Type of issue</th>
+                    <th scope="col">Platform</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-nl"></span>&nbsp;NL</th><td>03/07 11:08</td><td>Connectivity</td><td>Origin</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-pl"></span>&nbsp;PL</th><td>03/07 11:07</td><td>Connectivity</td><td>Origin</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-no"></span>&nbsp;NO</th><td>03/07 11:07</td><td>Connectivity</td><td>Origin</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-ru"></span>&nbsp;RU</th><td>03/07 11:07</td><td>Connectivity</td><td>Steam</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-fr"></span>&nbsp;FR</th><td>03/07 11:06</td><td>Connectivity</td><td>Origin</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-fr"></span>&nbsp;FR</th><td>03/07 11:05</td><td>Connectivity</td><td>Origin</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-ru"></span>&nbsp;RU</th><td>03/07 11:02</td><td>Connectivity</td><td>Steam</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 10:43</td><td>Match making</td><td>Steam</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-hk"></span>&nbsp;HK</th><td>03/07 10:42</td><td>Connectivity</td><td>Origin</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-de"></span>&nbsp;DE</th><td>03/07 10:36</td><td>Connectivity</td><td>Playstation</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-no"></span>&nbsp;NO</th><td>03/07 10:35</td><td>Latency</td><td>Origin</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-ca"></span>&nbsp;CA</th><td>03/07 09:28</td><td>Latency</td><td>Steam</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-za"></span>&nbsp;ZA</th><td>03/07 09:27</td><td>Connectivity</td><td>Steam</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-ru"></span>&nbsp;RU</th><td>03/07 09:23</td><td>Connectivity</td><td>Origin</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 08:50</td><td>Latency</td><td>Steam</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-no"></span>&nbsp;NO</th><td>03/07 08:35</td><td>Connectivity</td><td>Steam</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-my"></span>&nbsp;MY</th><td>03/07 08:17</td><td>Connectivity</td><td>Steam</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-sg"></span>&nbsp;SG</th><td>03/07 08:17</td><td>Connectivity</td><td>Steam</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 08:09</td><td>Latency</td><td>Playstation</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 08:08</td><td>Connectivity</td><td>Playstation</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-fr"></span>&nbsp;FR</th><td>03/07 08:01</td><td>Connectivity</td><td>Origin</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-ru"></span>&nbsp;RU</th><td>03/07 08:01</td><td>Latency</td><td>Xbox</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 07:19</td><td>Connectivity</td><td>Steam</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-ph"></span>&nbsp;PH</th><td>03/07 07:14</td><td>Connectivity</td><td>Steam</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-ca"></span>&nbsp;CA</th><td>03/07 06:52</td><td>Latency</td><td>Steam</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 06:50</td><td>Latency</td><td>Origin</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 06:48</td><td>Connectivity</td><td>Playstation</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-ca"></span>&nbsp;CA</th><td>03/07 06:35</td><td>Match making</td><td>Playstation</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 06:35</td><td>Connectivity</td><td>Steam</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 06:16</td><td>Connectivity</td><td>Xbox</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 06:03</td><td>Connectivity</td><td>Playstation</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 05:44</td><td>Connectivity</td><td>Xbox</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 05:41</td><td>Latency</td><td>Playstation</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 05:41</td><td>Latency</td><td>Steam</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 05:40</td><td>Latency</td><td>Xbox</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-pt"></span>&nbsp;PT</th><td>03/07 05:34</td><td>Latency</td><td>Playstation</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 05:25</td><td>Connectivity</td><td>Origin</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 05:23</td><td>Connectivity</td><td>Origin</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-au"></span>&nbsp;AU</th><td>03/07 05:23</td><td>Connectivity</td><td>Xbox</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-au"></span>&nbsp;AU</th><td>03/07 05:19</td><td>Connectivity</td><td>Origin</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 05:16</td><td>Match making</td><td>Origin</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-ca"></span>&nbsp;CA</th><td>03/07 05:16</td><td>Connectivity</td><td>Origin</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-au"></span>&nbsp;AU</th><td>03/07 05:15</td><td>Connectivity</td><td>Origin</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 05:15</td><td>Connectivity</td><td>Steam</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 05:13</td><td>Connectivity</td><td>Origin</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 05:09</td><td>Connectivity</td><td>Origin</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 05:08</td><td>Connectivity</td><td>Origin</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 05:06</td><td>Connectivity</td><td>Origin</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-us"></span>&nbsp;US</th><td>03/07 05:05</td><td>Latency</td><td>Steam</td><tr><th scope="row" style="text-align: center;">&nbsp;&nbsp;<span class="flag-icon flag-icon-ca"></span>&nbsp;CA</th><td>03/07 05:03</td><td>Connectivity</td><td>Origin</td>                </tbody>
+            </table>
+        </div>
+
+        <div class="col-lg-6">
+            <h5>Live report map</h5>
+            <hr class="hr-white" />
+            <div class="heatmap" id="map-canvas">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#historytab').DataTable({searching: false, info: false, lengthChange: false, ordering: false});
+        } );
+    </script>
+
+    <script src="heatmap.js"></script>
+    <script src="heatmapleaflet.js"></script>
+    <script>
+        var testData = {
+            max: 1,
+            data :[{lat: 59.7, lng:10.2, count: 2},{lat: 51.9, lng:8.4, count: 1},{lat: 22.3, lng:114.2, count: 1},{lat: 27.5, lng:-82.4, count: 1},{lat: 52.6, lng:34.0, count: 2},{lat: 48.6, lng:7.8, count: 2},{lat: 48.9, lng:2.1, count: 2},{lat: 52.3, lng:104.3, count: 2},{lat: 59.9, lng:10.8, count: 2},{lat: 50.0, lng:19.9, count: 1},{lat: 52.1, lng:5.6, count: 1}]
+        };
+
+        var baseLayer = L.tileLayer(
+            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+                maxZoom: 5
+            }
+        );
+
+        var cfg = {
+            "radius": 2,
+            "maxOpacity": .8,
+            "scaleRadius": true,
+            "useLocalExtrema": true,
+            latField: 'lat',
+            lngField: 'lng',
+            valueField: 'count'
+        };
+
+
+        var heatmapLayer = new HeatmapOverlay(cfg);
+
+        var map = new L.Map('map-canvas', {
+            center: new L.LatLng(46.044654, -30.718522),
+            zoom: 3,
+            layers: [baseLayer, heatmapLayer]
+        });
+
+        heatmapLayer.setData(testData);
+    </script>
+
+    <footer class="footer">
+    <p>
+        Copyright &copy; 2021 | All images and icons belong to their respective owner. Apex Legends is a registered trademark of EA. <b>We are not affiliated with EA/Respawn/EAC in any way. This is made by a player, for players</b>. You're using V3-BETA.<br />
+		<b>Inquiries, complaints: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="533223362b3f3634363d372020273227262013343e323a3f7d303c3e">[email&#160;protected]</a></b> (Won't answer to "game issues") | <a href="/privacy-policy">Privacy policy</a>
+    </p>
+
+    <p class="text-right">
+        Original design by <a target="_blank" href="https://github.com/Mitcheljager/apexdata">Mitcheljager</a> | Now adapted & maintened by <a href="https://github.com/HugoDerave" target="_blank">HeyImLIFELINE</a>
+    </p>
+</footer>
+
+</main>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="/tarteaucitron.js-20210306/tarteaucitron.js"></script>
+
+<script type="text/javascript">
+window.tarteaucitronForceLanguage = "en";
+
+tarteaucitron.init({
+  "privacyUrl": "", 
+
+  "hashtag": "", 
+  "cookieName": "gdpr_consent", 
+
+  "orientation": "middle",
+				   
+  "showAlertSmall": false, 
+  "cookieslist": false, 
+				   
+  "closePopup": false, 
+
+  "showIcon": true, 
+  "iconPosition": "BottomRight", 
+
+  "adblocker": false,
+				   
+  "DenyAllCta" : false, 
+  "AcceptAllCta" : true, 
+  "highPrivacy": true,
+				   
+  "handleBrowserDNTRequest": false,
+
+  "cookieDomain": ".apexlegendsstatus.com",
+
+  "removeCredit": true, 
+  "moreInfoLink": false,
+  "useExternalCss": false, 
+  "useExternalJs": false,
+				  
+  "readmoreLink": "",
+
+  "mandatory": true,
+});
+</script>
+
+<script type="text/javascript">
+	tarteaucitron.user.gtagUa = 'UA-134730448-1';
+	tarteaucitron.user.gtagMore = function () { };
+	(tarteaucitron.job = tarteaucitron.job || []).push('gtag');
+</script>
+
+<!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-134730448-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-134730448-1');
+</script>-->
+
+</body>
+</html>
+
+
+</main>
+
+<div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0;background-color: rgba(33, 33, 42, 0.5);">
+        <div class="modal-content" style="background-color: rgb(33, 33, 42); color: white;">
+            <div class="modal-body">
+                <form method="GET" action="/lib/php/manual.php">
+                    <h5 style="margin: 5px;">What's your platform?</h5>
+                    <div class="row">
+                        <hr />
+                        <div class="col-lg-6">
+                            <div class="btn-group-toggle" style="width: 100%; margin-bottom: 10px;" data-toggle="buttons">
+                                <label class="btn btn-outline-light" style="width: 100%;" id="p-steam">
+                                    <input type="checkbox" id="plat-steam" name="steam" autocomplete="off" data-cat="platform"> <img src="/assets/modal/steam.svg" style="height: 25px;" />&nbsp;&nbsp;&nbsp;Steam
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="btn-group-toggle" style="width: 100%; margin-bottom: 10px;"  data-toggle="buttons">
+                                <label class="btn btn-outline-light" style="width: 100%;" id="p-origin">
+                                    <input type="checkbox" id="plat-origin" name="origin" autocomplete="off" data-cat="platform"> <img src="/assets/modal/origin.svg" style="height: 25px;" />&nbsp;&nbsp;&nbsp;Origin
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="btn-group-toggle" style="width: 100%; margin-bottom: 10px;"  data-toggle="buttons">
+                                <label class="btn btn-outline-light" style="width: 100%;" id="p-playstation">
+                                    <input type="checkbox" id="plat-playstation" name="playstation" autocomplete="off" data-cat="platform"> <img src="/assets/modal/playstation.svg" style="height: 25px;" />&nbsp;&nbsp;&nbsp;Playstation
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="btn-group-toggle" style="width: 100%; margin-bottom: 10px;"  data-toggle="buttons">
+                                <label class="btn btn-outline-light" style="width: 100%;" id="p-xbox">
+                                    <input type="checkbox" id="plat-xbox" name="xbox" autocomplete="off" data-cat="platform"> <img src="/assets/modal/xbox.svg" style="height: 25px;" />&nbsp;&nbsp;&nbsp;Xbox
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <h5 style="margin: 5px;">What's your issue?</h5>
+                    <div class="row">
+                        <hr />
+                        <div class="col-lg-12">
+                            <div class="btn-group-toggle" style="width: 100%; margin-bottom: 10px;"  data-toggle="buttons">
+                                <label class="btn btn-outline-light" style="width: 100%;" id="r-connection">
+                                    <input type="checkbox" id="reason-conncetion" name="connection" autocomplete="off" data-cat="reason">can't connect to the game
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="btn-group-toggle" style="width: 100%; margin-bottom: 10px;"  data-toggle="buttons">
+                                <label class="btn btn-outline-light" style="width: 100%;" id="r-matchmaking">
+                                    <input type="checkbox" id="reason-matchmaking" name="matchmaking" autocomplete="off" data-cat="reason">stuck on matchmaking
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="btn-group-toggle" style="width: 100%; margin-bottom: 10px;"  data-toggle="buttons">
+                                <label class="btn btn-outline-light" style="width: 100%;" id="r-latency">
+                                    <input type="checkbox" id="reason-latency" name="latency" autocomplete="off" data-cat="reason">high ping in game
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <input type="submit" class="btn btn-success bg-suc" name="report-submit" id="rep-submit" style="width: 100%;" value="Confirm & include my country location" disabled/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#rep-submit').prop("disabled", true);
+    platform = false;
+    reason = false;
+
+    $(function() {
+
+        $('input[type="checkbox"]').bind('change', function (v) {
+            if($(this).attr("data-cat") == 'platform'){
+                $('#plat-xbox').prop('checked', false);
+                $('#p-xbox').removeClass("active");
+                $('#plat-playstation').prop('checked', false);
+                $('#p-playstation').removeClass("active");
+                $('#plat-origin').prop('checked', false);
+                $('#p-origin').removeClass("active");
+                $('#plat-steam').prop('checked', false);
+                $('#p-steam').removeClass("active");
+
+                $(this).prop('checked', true);
+                platform = true;
+
+                if(platform && reason){
+                    $('#rep-submit').prop("disabled", false);
+                }
+            }else if($(this).attr("data-cat") == 'reason'){
+                $('#reason-connection').prop('checked', false);
+                $('#r-connection').removeClass("active");
+                $('#reason-matchmaking').prop('checked', false);
+                $('#r-matchmaking').removeClass("active");
+                $('#reason-latency').prop('checked', false);
+                $('#r-latency').removeClass("active");
+
+                $(this).prop('checked', true);
+                reason = true;
+
+                if(platform && reason){
+                    $('#rep-submit').prop("disabled", false);
+                }
+            }
+        });
+
+    });
+</script>
+
