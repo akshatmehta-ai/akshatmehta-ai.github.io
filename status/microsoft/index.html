@@ -1,0 +1,169 @@
+
+
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head>
+    <title>Service Status</title>
+
+    <!-- perfping and other diagnostic scripts -->
+    
+
+
+
+    
+    
+
+
+    <script type='text/javascript'>window.O365=window.O365||{},O365.CID="b7464a66-5c8c-4731-b1e3-dfbf3f23a160",O365.PID="servicestatus",O365.TID="",O365.UID="",O365.PUID="",O365.LURL="",O365.CLSID="d53a0b03-ff8b-45db-bebd-4f5b5b01bbac"</script><script type='text/javascript'>var O365;(function(n){n.Perf={},n.Perf.M={S:new Date};var t=!1,i=function(i){var u,f;t||(t=!0,u=n.Perf.M,u[i]=new Date,f=u[i].getTime(),window.setTimeout(function(){var e="",s,l,t,a,v;try{for(s=["L","U","M"],e+="{B:{S:'"+i+"',",t=0;t<s.length;t++)e+=r(s[t],u.S,u[s[t]],t===s.length-1);if(e+="}",window.performance&&performance.timing){var o=window.performance.timing,y=o.fetchStart,p=u.M?u.M.getTime():-1,h=["E","O","D","C","R","S","M","L"],c=o.loadEventStart;for(c&&(f=c),l=[o.redirectStart,o.domainLookupStart,o.domainLookupEnd,o.connectEnd,o.responseStart,o.responseEnd,p,c],e+=",A:{",t=0;t<h.length;t++)e+=r(h[t],y,l[t],t===h.length-1);e+="}"}e+=",C:{LT:"+f+"}}"}catch(w){e+="!E!"+encodeURIComponent(w.toString().substr(0,100))}a="/pp.l",v=new Image,v.src=a+"?CID="+n.CID+"&pageId="+n.PID+"&d="+e},1))},r=function(n,t,i,r){var u=i&&i>=t?i-t:-1;return n+"T:"+u+(r?"":",")};window.onload=function(){i('L')},window.onbeforeunload=function(){i('U')}})(O365||(O365={}))</script>
+
+    
+
+
+    
+    
+    
+    
+
+    <link type="text/css" rel="stylesheet" href="https://prod.msocdn.com/2021.3.1.1/en-US/css/EmbeddedFonts.css"/><link type="text/css" rel="stylesheet" href="https://prod.msocdn.com/2021.3.1.1/en-US/css/O365ThemeDefault.css"/><link type="text/css" rel="stylesheet" href="https://prod.msocdn.com/2021.3.1.1/en-US/css/MasterStyles15.css"/><link type="text/css" rel="stylesheet" href="https://prod.msocdn.com/2021.3.1.1/en-US/css/MasterStyles15MVC.css"/><link type="text/css" rel="stylesheet" href="https://prod.msocdn.com/2021.3.1.1/en-US/Support/OSS/bootstrap_3.0.2/css/bootstrap.min.css"/><link type="text/css" rel="stylesheet" href="https://prod.msocdn.com/2021.3.1.1/en-US/css/ServicePulse.css"/>
+
+    
+    
+
+        <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    
+
+    
+</head>
+<body>
+    <noscript>
+        
+        
+    </noscript>
+
+    
+
+
+<style type="text/css">
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+        display: none !important;
+    }
+</style>
+
+
+<div class="container-fluid" ng-app="servicePulseApp" ng-controller="IndexCtrl">
+    <div class="row">
+        <div class="sp-header">
+            <span class="sp-header-text">Service health</span>
+            <img class="sp-header-msimage" src="/images/servicepulse/msftlogo.png" />
+        </div>
+    </div>
+    <div class="row" ng-cloak>
+        <div class="text-center" ng-class="IndexModel.IsAllUp ? 'sp-banner-up' : 'sp-banner-down'">
+            <div class="sp-banner-text">
+                <p>
+                    <img class="img-responsive sp-banner-icon" ng-src="{{IndexModel.IsAllUp ? '/images/servicepulse/icon-check.png' : '/images/servicepulse/icon-alertoutline.png'}}"/>
+                </p>
+                <p class="sp-banner-title">{{IndexModel.Title}}</p>
+                <p class="sp-banner-subtitle">{{IndexModel.SubTitle}}</p>
+            </div>
+            <img class="img-responsive sp-banner-img" ng-src="{{IndexModel.BannerImage}}" alt="{{IndexModel.Title}}" />
+        </div>
+    </div>
+
+    <div class="row sp-service-header hidden-sm hidden-xs" ng-cloak>
+        <div class="col-md-3 {{IndexModel.IsRightToLeft ? 'pull-right' : 'pull-left'}}">
+            Service
+            <span class="{{IndexModel.IsRightToLeft ? 'pull-left' : 'pull-right'}}">
+                Current status
+            </span>
+        </div>
+        <div class="col-md-9">
+            <span>Details</span>
+            <span class="{{IndexModel.IsRightToLeft ? 'pull-left' : 'pull-right'}}">{{IndexModel.LastRefreshed}}</span>
+        </div>
+    </div>
+    <div class="row sp-service-header hidden-md hidden-lg" ng-cloak>
+        <div class="col-sm-12">
+            {{IndexModel.LastRefreshed}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3 hidden-xs hidden-sm sp-col-nav {{IndexModel.IsRightToLeft ? 'pull-right' : 'pull-left'}}" ng-cloak>
+            <ul class="nav nav-pills nav-stacked sp-nav">
+                <li ng-repeat="service in IndexModel.Services" ng-class="service.Id == IndexModel.ActiveService ? 'active' : ''">
+                    <a href="javascript:void(0)" ng-click="IndexModel.ActiveService = service.Id" data-hint="{{'service.' + service.Id}}">
+                        <span>{{service.Name}}</span>
+                        <img ng-src="{{service.IsUp ? '/images/servicepulse/good.png' : '/images/servicepulse/error.png'}}" alt="{{service.IsUp ? 'service is healthy' : 'service is interrupted'}}" class="sp-nav-icon {{IndexModel.IsRightToLeft ? 'pull-left' : 'pull-right'}}" />
+                    </a>
+                </li>
+            </ul>
+            <div class="sp-learnmore">
+                <a href="/Adminportal/Home#/servicehealth" data-hint="AdminLogin" target="_blank">Microsoft 365 admins click here to login</a>
+            </div>
+        </div>
+
+        <div class="col-md-9 sp-col-content" ng-cloak>
+            <div class="panel-default" ng-repeat="service in IndexModel.Services">
+                <div class="panel-heading hidden-md hidden-lg sp-content-heading">
+                    <a ng-click="IndexModel.ActiveService = service.Id" data-hint="{{service.Id}}">
+                        <span>{{service.Name}}</span>
+                        <img ng-src="{{service.IsUp ? '/images/servicepulse/good.png' : '/images/servicepulse/error.png'}}" alt="{{service.IsUp ? 'service is healthy' : 'service is interrupted'}}" class="sp-nav-icon {{IndexModel.IsRightToLeft ? 'pull-left' : 'pull-right'}}" />
+                    </a>
+                </div>
+                <div id="{{service.Id}}" class="panel-body" ng-init="service.InitShowCount = service.IsUp ? 0 : 1; service.ShowCount = service.InitShowCount" ng-show="service.Id == IndexModel.ActiveService">
+                    <div ng-if="service.IsUp">
+                        <p>Everything is up and running.</p>
+                    </div>
+                    <div ng-repeat="message in service.Messages | limitTo: service.ShowCount">
+                        <div class="sp-msg-sep" ng-if="$index != 0 || service.IsUp"></div>
+                        <div>
+                            <p ng-repeat="line in message.Lines">{{line}}</p>
+                        </div>
+                    </div>
+                    <div ng-if="service.Messages != null && service.Messages.length &gt; 1">
+                        <a href="javascript:void(0)" data-hint="ShowMore" ng-show="service.ShowCount != service.Messages.length" ng-click="service.ShowCount = service.Messages.length">Show more</a>
+                        <a href="javascript:void(0)" data-hint="ShowLess" ng-show="service.ShowCount == service.Messages.length" ng-click="service.ShowCount = service.InitShowCount">Show less</a>
+                    </div>
+                </div>
+                <div id="sp-monitor-hidden"></div>
+            </div>
+        </div>
+    </div>
+    <div class="sp-push"></div>
+</div>
+<div class="sp-footer">
+    <span>
+        <a href="https://go.microsoft.com/fwlink/?LinkID=206977">Terms of use</a>
+    </span>
+    <span>
+        <a href="https://go.microsoft.com/fwlink/?LinkId=248681">Privacy &amp; cookies</a>
+    </span>
+    <span>
+        <a href="https://go.microsoft.com/?linkid=9851308">Trademarks</a>
+    </span>
+    <span>© 2021 Microsoft x Akshat Mehta</span>
+</div>
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+
+    <script type="text/javascript" src="https://prod.msocdn.com/2021.3.1.1/en-US/JSC/MicrosoftAjaxCombined.js" ></script><script type="text/javascript" src="https://prod.msocdn.com/2021.3.1.1/en-US/JS/jQuery/jquery-1_10_2_min.js" ></script><script type="text/javascript" src="https://prod.msocdn.com/2021.3.1.1/en-US/JSC/CommonControlBundle.js" ></script><script type="text/javascript" src="https://prod.msocdn.com/2021.3.1.1/en-US/JSC/HeadBundle.js" ></script><script type="text/javascript" src="https://prod.msocdn.com/2021.3.1.1/en-US/Support/OSS/angular_1.3.0/angular.min.js" ></script><script type="text/javascript" src="https://prod.msocdn.com/2021.3.1.1/en-US/JS/ServicePulse.js" ></script>
+    <script type='text/javascript'>O365.Perf.M.M=new Date</script><script type="text/javascript" src="https://prod.msocdn.com/2021.3.1.1/en-US/JS/Instrument.js" ></script>
+
+    
+    
+</body>
+</html>
