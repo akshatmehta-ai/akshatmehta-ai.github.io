@@ -1,3 +1,8 @@
-RewriteEngine On
-RewriteCond %{SERVER_PORT} 80
-RewriteRule ^(.*)$ https://www.akshatmehta.xyz/$1 [R,L]
+# MAINTENANCE-PAGE REDIRECT
+<IfModule mod_rewrite.c>
+ RewriteEngine on
+ RewriteCond %{REMOTE_ADDR} !^123\.456\.789\.000
+ RewriteCond %{REQUEST_URI} !/maintenance.html$ [NC]
+ RewriteCond %{REQUEST_URI} !\.(jpe?g?|png|gif) [NC]
+ RewriteRule .* /maintenance.html [R=302,L]
+</IfModule>
